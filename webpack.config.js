@@ -32,6 +32,14 @@ module.exports = {
             patterns: [
                 { from: 'src/manifest.json', to: 'manifest.json' },
                 { from: 'src/styles.css', to: 'styles.css' },
+                {
+                    from: "img", to: "icons", globOptions: {
+                        ignore: [
+                            "**/PurpleHawk.jpg",
+                            "**/PurpleHawk.png"
+                        ] 
+                    }
+                }
             ],
         }),
     ],

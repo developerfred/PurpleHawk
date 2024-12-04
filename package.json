@@ -1,6 +1,6 @@
 {
   "name": "purple-hawk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "codingsh",
   "description": "Chrome extension to replace addresses with Farcaster names on DexScreener",
   "scripts": {

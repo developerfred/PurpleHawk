@@ -4,17 +4,17 @@
   "version": "1.0.0",
   "description": "Transform your DexScreener experience by replacing wallet addresses with Farcaster names",
   "icons": {
-    "16": "img/icon-16.png",
-    "32": "img/icon-32.png",
-    "48": "img/icon-48.png",
-    "128": "img/icon-128.png"
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
   },
   "action": {
     "default_icon": {
-      "16": "img/icon-16.png",
-      "32": "img/icon-32.png",
-      "48": "img/icon-48.png",
-      "128": "img/icon-128.png"
+     "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
     }
   },
   "permissions": [
