@@ -1,0 +1,47 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Create .env file
+        run: |
+          echo "CACHE_DURATION=3600000" > .env
+          echo "NEYNAR_API_KEY=${{ secrets.NEYNAR_API_KEY }}" >> .env
+          echo "NEYNAR_API_URL=${{ secrets.NEYNAR_API_URL }}" >> .env
+        
+      - name: Build extension
+        run: npm run build
+        
+      - name: Remove .env file
+        run: rm .env
+        
+      - name: Zip extension
+        run: |
+          cd dist
+          zip -r ../extension.zip *
+          
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: extension.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
