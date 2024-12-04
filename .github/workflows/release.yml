@@ -6,42 +6,51 @@ on:
       - 'v*'
 
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
+          bun-version: latest
           
       - name: Install dependencies
-        run: npm ci
+        run: bun install
+      
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
         
-      - name: Create .env file
+      - name: Update manifest version
         run: |
-          echo "CACHE_DURATION=3600000" > .env
-          echo "NEYNAR_API_KEY=${{ secrets.NEYNAR_API_KEY }}" >> .env
+          jq '.version = "${{ steps.get_version.outputs.VERSION }}"' manifest.json > manifest.json.tmp
+          mv manifest.json.tmp manifest.json
+        
+      - name: Create production build
+        run: |
+          echo "NEYNAR_API_KEY=${{ secrets.NEYNAR_API_KEY }}" > .env
           echo "NEYNAR_API_URL=${{ secrets.NEYNAR_API_URL }}" >> .env
+          echo "CACHE_DURATION=3600000" >> .env
+          bun run build
+          rm .env
         
-      - name: Build extension
-        run: npm run build
-        
-      - name: Remove .env file
-        run: rm .env
-        
-      - name: Zip extension
+      - name: Create ZIP file
         run: |
           cd dist
-          zip -r ../extension.zip *
-          
-      - name: Create Release
-        id: create_release
+          zip -r ../purplehawk-v${{ steps.get_version.outputs.VERSION }}.zip *
+        
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: extension.zip
+          files: purplehawk-v${{ steps.get_version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: false
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
