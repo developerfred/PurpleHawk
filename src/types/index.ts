@@ -21,6 +21,9 @@ export interface CachedName {
     pfp?: string;
     type: 'farcaster' | 'ens' | 'base';
     timestamp: number;
+    fid?: number;
+    isPowerUser?: boolean;
+    notFound?: boolean;
 }
 
 export interface TextTriggerPattern {

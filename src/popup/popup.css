@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 288px;
+  margin: 0;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.header {
+  @apply border-b pb-2;
+}
+
+.logo-container {
+  @apply flex items-center space-x-2 cursor-pointer;
+}
+
+.logo {
+  @apply w-8 h-8;
+}
+
+.title {
+  @apply text-xl font-bold text-purple-600;
+}
+
+.card {
+  @apply bg-white rounded-lg border p-4 shadow-sm;
+}
+
+.stats-container {
+  @apply flex justify-between items-center;
+}
+
+.refresh-button {
+  @apply p-2 hover:bg-gray-100 rounded-full transition-colors;
+}
+
+.nav-button {
+  @apply w-full flex items-center justify-between p-2 hover:bg-gray-100 rounded transition-colors;
+}
+
+.about-section {
+  @apply space-y-4 text-center;
+}
+
+.creator-link {
+  @apply text-purple-600 hover:underline flex items-center justify-center gap-2;
+}
+
+.github-button {
+  @apply w-full flex items-center justify-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 rounded transition-colors;
+}
+
+.donate-button {
+  @apply w-full flex items-center justify-center gap-2 p-2 bg-purple-100 hover:bg-purple-200 rounded text-purple-700 transition-colors;
+}
+
+.footer {
+  @apply text-xs text-gray-500 text-center mt-4;
+}
+
+.version {
+  @apply text-xs text-gray-500 text-center;
+}
+
+.creator-avatar {
+  @apply w-6 h-6 rounded-full;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}

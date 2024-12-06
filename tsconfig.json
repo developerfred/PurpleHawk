@@ -1,14 +1,33 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "jsx": "react",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "components/*": [
+        "./components/*"
+      ]
+    },
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "moduleResolution": "node"
+    "types": [
+      "chrome",
+      "node",
+      "react",
+      "react-dom"
+    ]
   },
   "include": [
     "src/**/*"
