@@ -1,6 +1,6 @@
-import './styles.css';
-import { NameResolver } from './services/nameResolver';
-import { CachedName, TextTriggerPattern, RegexTriggerPattern, TriggerPattern } from './types';
+import '../style/styles.css';
+import { NameResolver } from '../services/nameResolver';
+import { CachedName, TextTriggerPattern, RegexTriggerPattern, TriggerPattern } from '../types';
 
 const resolver = new NameResolver();
 
@@ -129,12 +129,19 @@ function createNameElement(cachedName: CachedName, originalAddress: string): HTM
         link.className = 'fc-name-link';
 
         const nameSpan = document.createElement('span');
-        nameSpan.textContent = cachedName.displayName || cachedName.name;
+        nameSpan.textContent = cachedName.name;
         link.appendChild(nameSpan);
+
+        if (cachedName.isPowerUser) {
+            const powerBadge = document.createElement('span');
+            powerBadge.textContent = '⚡';
+            powerBadge.className = 'fc-power-badge';
+            link.appendChild(powerBadge);
+        }
 
         container.appendChild(link);
     } else {
-        container.textContent = cachedName.displayName || cachedName.name;
+        container.textContent = cachedName.name;
     }
 
     return container;
@@ -328,9 +335,17 @@ const styles = `
     color: #855DCD;
 }
 
+.fc-power-badge {
+    color: #855DCD;
+    font-size: 0.9em;
+}
+
 .fc-name-link {
     color: inherit;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .fc-name-link:hover {
